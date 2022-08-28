@@ -11,7 +11,7 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
-  plugins: [new HtmlWebpackPlugin({ template: "" })],
+  plugins: [new HtmlWebpackPlugin({ template: "./src/template.html" })],
   module: {
     rules: [
       {

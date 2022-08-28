@@ -13,9 +13,9 @@ class Ship {
 
   isSunk() {
     if (this.hitPlaces.reduce((prev, curr) => prev + curr, 0) == this.length) {
-      return (this.sunk = true);
+      this.sunk = true;
     }
-    return false;
+    return this.sunk;
   }
 }
 
@@ -52,6 +52,7 @@ class Gameboard {
         ? y - currShip.startPos[1]
         : x - currShip.startPos[0];
     currShip.hit(posn);
+    this.isGameOver();
   }
 
   isGameOver() {
@@ -71,6 +72,10 @@ class Player {
   constructor(name, computer = false) {
     this.name = name;
     this.computer = computer;
+  }
+
+  attack(x, y, targetBoard) {
+    targetBoard.receiveAttack(x, y);
   }
 }
 
