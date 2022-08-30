@@ -1,4 +1,4 @@
-import { Ship, Gameboard } from "./index";
+import { Ship, Gameboard } from "./gameFunctions";
 
 describe("Ship", () => {
   const ship = new Ship(2);
