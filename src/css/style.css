@@ -42,6 +42,18 @@
 .highlighted {
   background-color: gray !important;
 }
+
+.highlighted:hover{
+  cursor:pointer;
+}
+
+.red-highlight{
+  background-color: red;
+}
+
+.red-highlight:hover{
+  cursor:not-allowed;
+}
 /* 
 .enabled:hover {
   background-color: blue;

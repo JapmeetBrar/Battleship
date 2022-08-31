@@ -19,59 +19,80 @@ function placeShip(length) {
 function addHighlight(target, length, orient) {
   let x = parseInt(target.getAttribute("data-column"));
   let y = parseInt(target.getAttribute("data-row"));
-  if (orient == "h" && x <= 10 - length) {
-    if (!target.classList.contains("highlighted")) {
-      target.classList.add("highlighted");
-      let sibling = document.querySelector(
-        `.board-1 [data-row='${y}'][data-column='${x + 1}']`
+
+  if (orient == "h"){
+    let className = x <= 10-length?"highlighted":"red-highlight";
+    target.classList.add(className)
+    let sibling = document.querySelector(
+      `.board-1 [data-row='${y}'][data-column='${x + 1}']`
+    );
+    for (let i = 2; i <= length; i++) {
+      sibling.classList.add(className);
+      sibling = document.querySelector(
+        `.board-1 [data-row='${y}'][data-column='${x + i}']`
       );
-      for (let i = 2; i <= length; i++) {
-        sibling.classList.add("highlighted");
-        sibling = document.querySelector(
-          `.board-1 [data-row='${y}'][data-column='${x + i}']`
-        );
-      }
     }
-  } else if (orient == "v" && y <= 10 - length) {
-    if (!target.classList.contains("highlighted")) {
-      target.classList.add("highlighted");
-      let sibling = document.querySelector(
-        `.board-1 [data-row='${y + 1}'][data-column='${x}']`
+  }
+
+  if (orient == "v") {
+    let className = y <= 10-length?"highlighted":"red-highlight";
+    target.classList.add(className);
+    let sibling = document.querySelector(
+      `.board-1 [data-row='${y + 1}'][data-column='${x}']`
+    );
+    for (let i = 2; i <= length; i++) {
+      sibling.classList.add(className);
+      sibling = document.querySelector(
+        `.board-1 [data-row='${y + i}'][data-column='${x}']`
       );
-      for (let i = 2; i <= length; i++) {
-        sibling.classList.add("highlighted");
-        sibling = document.querySelector(
-          `.board-1 [data-row='${y + i}'][data-column='${x}']`
-        );
-      }
     }
   }
 }
 
 function removeHighlight(target, length, orient) {
-  // if (target.classList.contains("enabled")) {
-  target.classList.remove("highlighted");
-  let sibling = target.nextSibling;
-  for (let i = 1; i < length; i++) {
-    sibling.classList.remove("highlighted");
-    sibling = sibling.nextSibling;
+  let x = parseInt(target.getAttribute("data-column"));
+  let y = parseInt(target.getAttribute("data-row"));
+
+
+  if (orient == 'h'){
+    let className = x <= 10-length?"highlighted":"red-highlight";
+    target.classList.remove(className);
+    let sibling = document.querySelector(
+      `.board-1 [data-row='${y}'][data-column='${x + 1}']`
+    );
+    for (let i = 2; i <= length; i++) {
+      sibling.classList.remove(className);
+      sibling = document.querySelector(
+        `.board-1 [data-row='${y}'][data-column='${x + i}']`
+      );
+    }
+  }else {
+    let className = y<=10-length?"highlighted":"red-highlight";
+    target.classList.remove(className);
+    let sibling = document.querySelector(
+      `.board-1 [data-row='${y + 1}'][data-column='${x}']`);
+    for (let i = 2; i <= length; i++) {
+      sibling.classList.remove(className);
+      sibling = document.querySelector(
+        `.board-1 [data-row='${y + i}'][data-column='${x}']`
+      );
+    }  
   }
-  // }
 }
+
 
 function prepareBoard() {
   boards.forEach((board) => {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         let div = document.createElement("div");
-        div.classList.add("enabled");
         div.setAttribute("data-row", 9 - i);
         div.setAttribute("data-column", j);
         board.appendChild(div);
       }
     }
   });
-  placeShip(5);
+  placeShip(4);
 }
 
 function addShipToBoard(x, y, orient, length, boardNum) {
