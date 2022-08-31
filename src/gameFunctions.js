@@ -1,5 +1,4 @@
 import "./css/style.css";
-import { prepareBoard, addShipToBoard, recordAttack } from "./domControl";
 
 class Ship {
   constructor(length, startPos = []) {
@@ -36,24 +35,19 @@ class Gameboard {
     let newShip = new Ship(length, [x, y]);
     for (let i = 0; i < length; i++) {
       if (orient == "h") {
-        if (x + length > 10) {
-          ///DO SOMETHING TO PREVENT SHIPS PLACED OUTSIDE BOARD
-        }
         this.board[y][x + i] = newShip;
       } else {
         this.board[y + i][x] = newShip;
       }
     }
-    if (this.boardNum == 1) addShipToBoard(x, y, orient, length, this.boardNum);
   }
 
   receiveAttack(x, y) {
     if (this.missedShots.includes(`${x}${y}`)) {
       return "ALREADY HIT";
     } else if (this.board[y][x] == 0) {
-      recordAttack(x, y, this.boardNum, "miss");
       this.missedShots.push(`${x}${y}`);
-      return "MISSED";
+      return "miss";
     }
     this.missedShots.push(`${x}${y}`);
     let currShip = this.board[y][x];
@@ -62,8 +56,7 @@ class Gameboard {
         ? y - currShip.startPos[1]
         : x - currShip.startPos[0];
     currShip.hit(posn);
-    recordAttack(x, y, this.boardNum, "hit");
-    return "HIT";
+    return "hit";
   }
 
   isGameOver() {
@@ -87,9 +80,8 @@ class Player {
   }
 
   attack(x, y, targetPlayer) {
-    return `${this.name}: ${targetPlayer.gameBoard.receiveAttack(x, y)}`;
+    return targetPlayer.gameBoard.receiveAttack(x, y);
   }
 }
-prepareBoard();
 
 export { Ship, Gameboard, Player };

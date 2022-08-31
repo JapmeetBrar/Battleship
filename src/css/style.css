@@ -48,11 +48,15 @@
 }
 
 .red-highlight{
-  background-color: red;
+  background-color: red !important;
 }
 
 .red-highlight:hover{
   cursor:not-allowed;
+}
+
+.placed-ship{
+  background-color: gray;
 }
 /* 
 .enabled:hover {
