@@ -35,6 +35,7 @@ class Gameboard {
     let newShip = new Ship(length, [x, y]);
     for (let i = 0; i < length; i++) {
       if (orient == "h") {
+        console.log(`${x},${y}`);
         this.board[y][x + i] = newShip;
       } else {
         this.board[y + i][x] = newShip;
